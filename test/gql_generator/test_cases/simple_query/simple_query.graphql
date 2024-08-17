@@ -1,0 +1,8 @@
+type Query {
+  simpleQuery: String!
+  simpleQueryNullable: String
+  simpleQueryList: [String!]!
+  simpleQueryListWithNullable: [String]!
+  simpleQueryListNullable: [String!]
+  simpleQueryListDoubleNullable: [String]
+}

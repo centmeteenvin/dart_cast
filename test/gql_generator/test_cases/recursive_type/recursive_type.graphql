@@ -1,0 +1,12 @@
+type B {
+  a: A
+  b: B
+}
+
+type A {
+  b: B
+}
+
+type Query {
+  testQuery: A
+}

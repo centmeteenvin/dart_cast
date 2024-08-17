@@ -1,0 +1,10 @@
+type Test {
+  test: String!
+  bar: Bar!
+  foo: [Foo!]!
+}
+
+type Query {
+  testQuery(id: String!): Test!
+  testQueryFoo(id: String!): Test!
+}

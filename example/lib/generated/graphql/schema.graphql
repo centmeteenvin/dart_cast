@@ -1,0 +1,31 @@
+type SimpleType {
+  stringField: String!
+  doubleField: Float!
+  boolField: Boolean!
+  intField: Int!
+  nullableField: String
+  listField: [String!]!
+  nullableListField: [String!]
+  listNullableField: [String]!
+  doubleNullableField: [String]
+}
+
+input PositionalParameter {
+  foo: String
+}
+
+input InsideInputParameterWithReference {
+  foo: String
+  backReference: NamedParameter
+}
+
+input NamedParameter {
+  foo: Int
+  insideInputParameter: InsideInputParameterWithReference
+}
+
+type Query {
+  simpleTypeQuery(emptyParameter: PositionalParameter!, namedParameter: NamedParameter!, defaultValue: String! = "'foo'"): [SimpleType!]!
+  simpleTypeQueryNullable: SimpleType
+  simpleTypeList: [SimpleType!]!
+}

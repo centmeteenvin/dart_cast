@@ -1,0 +1,8 @@
+query test_query {
+  testQuery(id: "3") {
+    name
+  }
+}
+mutation test_query {
+  testQuery
+}

@@ -1,0 +1,7 @@
+builders:
+  graphql_schema_builder:
+    import: "package:dart_cast/dart_cast.dart"
+    builder_factories: ["graphQlSchemaBuilder"]
+    build_extensions: { ".dart": [".g.dart"] }
+    auto_apply: dependents
+    build_to: source

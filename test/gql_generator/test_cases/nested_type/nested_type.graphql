@@ -1,0 +1,11 @@
+type B {
+  string: String!
+}
+
+type A {
+  b: B!
+}
+
+type Query {
+  testQuery: A
+}
