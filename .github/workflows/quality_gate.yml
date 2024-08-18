@@ -17,7 +17,7 @@ jobs:
 
   test_with_coverage:
     name: Test with coverage
-    runs-on: ubunutu-latest
+    runs-on: ubuntu-latest
     steps:
       # setup
       - name: Checkout
