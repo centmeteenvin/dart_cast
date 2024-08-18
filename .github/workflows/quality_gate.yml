@@ -37,7 +37,7 @@ jobs:
       - name: validate coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
-          path: "/home/runner/work/dart_cast/coverage/lcov.info"
+          path: "coverage/lcov.info"
           min_coverage: 90
           exclude: "**/**.g.dart"
 
