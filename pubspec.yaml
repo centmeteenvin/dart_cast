@@ -23,3 +23,9 @@ dev_dependencies:
   build_runner: ^2.4.11
   build_test: ^2.2.2
   coverage: ^1.9.0
+  rps: ^0.8.2
+  mocktail: ^1.0.4
+
+scripts:
+  test: dart run coverage:test_with_coverage
+  coverage: genhtml -o coverage/html coverage/lcov.info && open coverage/html/index.html

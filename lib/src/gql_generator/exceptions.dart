@@ -66,8 +66,8 @@ class DuplicateQueryError extends InvalidQueryDeclarationError {
       : super(message: 'All queries must have a unique name');
 }
 
-class InvalidDefaultValueError extends InvalidQueryDeclarationError {
-  InvalidDefaultValueError({required super.trace})
+class InvalidDefaultValueError extends InvalidTypeDeclarationError {
+  InvalidDefaultValueError({required super.trace, required super.type})
       : super(
             message:
                 'Default values are only supported for Scalar types or Scalar iterables');
@@ -84,22 +84,4 @@ class InvalidMutationDeclarationError extends GraphQLGeneratorError {
 class DuplicateMutationError extends InvalidMutationDeclarationError {
   DuplicateMutationError({required super.trace})
       : super(message: 'All queries must have a unique name');
-}
-
-class InvalidDefaultValueMutationError extends InvalidMutationDeclarationError {
-  InvalidDefaultValueMutationError({required super.trace})
-      : super(
-            message:
-                'Default values are only supported for Scalar types or Scalar iterables');
-}
-
-class InvalidElementError extends GraphQLGeneratorError {
-  InvalidElementError(
-      {required super.trace,
-      required Type received,
-      required List<Type> allowedTypes,
-      required Type registry})
-      : super(
-            message:
-                'An invalid element was passed to the $registry\nexpected: ${allowedTypes}\nreceived: ${received}');
 }

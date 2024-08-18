@@ -14,7 +14,7 @@ extension IsScalar on DartType {
       isDartCoreInt || isDartCoreBool || isDartCoreDouble || isDartCoreString;
 
   bool get isScalarIterable {
-    if (!isDartCoreIterable) return false;
+    if (!isDartCoreList) return false;
     if (!(this is ParameterizedType)) return false;
     return (this as ParameterizedType).typeArguments.first.isScalar;
   }
@@ -31,7 +31,7 @@ extension DefaultValue on ParameterElement {
     if (!hasDefaultValue) return null;
 
     if (!(type.isScalar || type.isScalarIterable)) {
-      throw InvalidDefaultValueError(trace: [...trace, this]);
+      throw InvalidDefaultValueError(trace: [...trace, this], type: type);
     }
 
     if (type.isScalar) {
