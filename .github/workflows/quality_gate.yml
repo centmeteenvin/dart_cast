@@ -18,6 +18,9 @@ jobs:
   test_with_coverage:
     name: Test with coverage
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
     steps:
       # setup
       - name: Checkout
@@ -29,10 +32,11 @@ jobs:
 
         # run tests
       - name: Running tests with coverage
-        run: dart run coverage:test_with_coverage -- --file-reporter json:reports/tests.json
+        run: dart run coverage:test_with_coverage -- --file-reporter json:reports/tests.json --verbose-trace
 
       # publish results
       - name: Publish Test Results
+        if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2.17.0
         with:
           files: reports/tests.json
