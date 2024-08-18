@@ -32,7 +32,14 @@ jobs:
 
         # run tests
       - name: Running tests with coverage
-        run: dart run coverage:test_with_coverage -- --file-reporter json:reports/tests.json --verbose-trace --timeout=60s -j 4
+        run: dart run coverage:test_with_coverage --out /coverage -- --file-reporter json:reports/tests.json --verbose-trace --timeout=60s -j 4
+
+      - name: validate coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2
+        with:
+          path: "/coverage/lcov.info"
+          min_coverage: 90
+          exclude: "**/**.g.dart"
 
       # publish results
       - name: Publish Test Results
