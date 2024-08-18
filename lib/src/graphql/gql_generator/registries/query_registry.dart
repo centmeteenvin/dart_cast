@@ -2,25 +2,24 @@
 /// Query definitions
 
 import 'package:analyzer/dart/element/element.dart';
-import 'package:dart_cast/src/gql_generator/registries/input_registry.dart';
 import 'package:gql/ast.dart' as ast;
 
 import '../exceptions.dart';
 import '../registries/type_registry.dart';
+import './input_registry.dart';
 import './registry_helpers.dart';
 
-class MutationRegistry {
+class QueryRegistry {
   final Map<String, ast.FieldDefinitionNode> definitions = {};
-
   final TypeRegistry typeRegistry;
   final InputRegistry inputRegistry;
 
-  MutationRegistry({required this.typeRegistry, required this.inputRegistry});
+  QueryRegistry({required this.typeRegistry, required this.inputRegistry});
 
   ast.FieldDefinitionNode create(FunctionElement element,
       {required List<Element> trace}) {
     if (definitions.containsKey(element.name)) {
-      throw DuplicateMutationError(trace: trace);
+      throw DuplicateQueryError(trace: trace);
     }
 
     final definition = ast.FieldDefinitionNode(

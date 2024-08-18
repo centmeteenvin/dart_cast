@@ -5,5 +5,5 @@ library;
 
 export 'src/dart_cast_base.dart';
 // TODO: Export any libraries intended for clients of this package.
-export 'src/gql_generator/annotations.dart';
-export 'src/gql_generator/builders.dart';
+export 'src/graphql/gql_generator/annotations.dart';
+export 'src/graphql/gql_generator/builders.dart';

@@ -3,13 +3,13 @@ import 'dart:io';
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/src/builder/build_step.dart';
-import 'package:dart_cast/src/gql_generator/registries/input_registry.dart';
-import 'package:dart_cast/src/gql_generator/registries/mutation_registry.dart';
 import 'package:gql/ast.dart' as ast;
 import 'package:gql/language.dart' as lang;
 import 'package:source_gen/source_gen.dart';
 
 import './annotations.dart';
+import './registries/input_registry.dart';
+import './registries/mutation_registry.dart';
 import './registries/query_registry.dart';
 import './registries/type_registry.dart';
 

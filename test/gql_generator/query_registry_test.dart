@@ -1,8 +1,8 @@
-import 'package:dart_cast/src/gql_generator/exceptions.dart';
-import 'package:dart_cast/src/gql_generator/registries/input_registry.dart';
-import 'package:dart_cast/src/gql_generator/registries/query_registry.dart';
-import 'package:dart_cast/src/gql_generator/registries/registry_helpers.dart';
-import 'package:dart_cast/src/gql_generator/registries/type_registry.dart';
+import 'package:dart_cast/src/graphql/gql_generator/exceptions.dart';
+import 'package:dart_cast/src/graphql/gql_generator/registries/input_registry.dart';
+import 'package:dart_cast/src/graphql/gql_generator/registries/query_registry.dart';
+import 'package:dart_cast/src/graphql/gql_generator/registries/registry_helpers.dart';
+import 'package:dart_cast/src/graphql/gql_generator/registries/type_registry.dart';
 import 'package:gql/ast.dart' as ast;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
