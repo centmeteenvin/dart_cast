@@ -1,0 +1,55 @@
+name: Quality Check
+
+on: pull_request
+
+jobs:
+  lint_and_analysis:
+    name: Lint and analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+
+      - name: Dart Analyze
+        uses: ValentinVignal/action-dart-analyze@v0.17
+        with:
+          fail-on: format
+
+  test_with_coverage:
+    name: Test with coverage
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+    steps:
+      # setup
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1.6.5
+      - name: get dependencies
+        run: dart pub get
+
+        # run tests
+      - name: Running tests with coverage
+        run: dart run coverage:test_with_coverage -- --file-reporter json:reports/tests.json --verbose-trace --timeout=60s -j 4
+
+      - name: validate coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2
+        with:
+          path: "coverage/lcov.info"
+          min_coverage: 90
+          exclude: "**/**.g.dart"
+
+      # publish results
+      - name: Publish Test Results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2.17.0
+        with:
+          files: reports/tests.json
+
+      - name: Code Coverage Report
+        uses: romeovs/lcov-reporter-action@v0.4.0
+        if: always()
+        with:
+          lcov-file: ./coverage/lcov.info
