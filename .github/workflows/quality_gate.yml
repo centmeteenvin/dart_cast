@@ -14,3 +14,19 @@ jobs:
         uses: ValentinVignal/action-dart-analyze@v0.17
         with:
           fail-on: format
+
+  test_with_coverage:
+    name: Test with coverage
+    runs-on: ubunutu-latest
+    steps:
+      # setup
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1.6.5
+      - name: get dependencies
+        run: dart pub get
+
+        # run tests
+      - name: Running tests with coverage
+        run: dart run coverage:test_with_coverage
