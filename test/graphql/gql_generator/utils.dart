@@ -15,9 +15,10 @@ Future<Directory> generateTestProject(String directoryToInclude) async {
   await _copyDirectory(_getTestCaseDirectory(directoryToInclude),
       Directory(projectDir.path + '/lib'));
 
-  final pubspec = File('test/gql_generator/test_cases/test.pubspec.yaml')
-      .readAsStringSync()
-      .replaceFirst("#PLACEHOLDER#", Directory.current.absolute.path);
+  final pubspec =
+      File('test/graphql/gql_generator/test_cases/test.pubspec.yaml')
+          .readAsStringSync()
+          .replaceFirst("#PLACEHOLDER#", Directory.current.absolute.path);
 
   File(path.join(projectDir.path, 'pubspec.yaml')).writeAsStringSync(pubspec);
   addTearDown(() => projectDir.delete(recursive: true));
@@ -59,8 +60,8 @@ void validateSchema(
 }
 
 Directory _getTestCaseDirectory(String testCaseName) {
-  return Directory(path.join(
-      Directory.current.path, 'test/gql_generator/test_cases', testCaseName));
+  return Directory(path.join(Directory.current.path,
+      'test/graphql/gql_generator/test_cases', testCaseName));
 }
 
 /// Copies a directory recursively to a new location.

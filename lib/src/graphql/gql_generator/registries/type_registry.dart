@@ -7,26 +7,27 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:gql/ast.dart' as ast;
 
-import '../exceptions.dart';
+import '../generation_exceptions.dart';
 import './registry_helpers.dart';
 
-class InputRegistry {
+class TypeRegistry {
   /// This map holds all the definitions and is keyed by a hash on the name and library field.
-  final Map<int, ast.InputObjectTypeDefinitionNode> definitions = {};
+  final Map<int, ast.ObjectTypeDefinitionNode> definitions = {};
 
   ast.TypeNode get(DartType type, {required List<Element> trace}) {
     final scalarType = scalarTypeOrNull(type);
-    if (scalarType != null) {
-      return scalarType;
-    }
+    if (scalarType != null) return scalarType;
 
     if (type.isDartCoreList) {
-      throw ListInputElementError(trace: trace, type: type);
+      return ast.ListTypeNode(
+          isNonNull: type.isNonNull,
+          type: getTypeParameter(type, trace: trace));
     }
+
     return getTypeFromObject(type, trace: trace);
   }
 
-  ast.NamedTypeNode? scalarTypeOrNull(DartType type) {
+  ast.TypeNode? scalarTypeOrNull(DartType type) {
     final isNonNull = type.isNonNull;
     String? name = null;
     if (type.isDartCoreInt) {
@@ -45,6 +46,14 @@ class InputRegistry {
             isNonNull: isNonNull,
           )
         : null;
+  }
+
+  ast.TypeNode getTypeParameter(DartType type, {required List<Element> trace}) {
+    if (!(type is ParameterizedType)) {
+      throw InvalidIterableTypeDeclarationError(trace: trace, type: type);
+    }
+    final parameterType = type.typeArguments.first;
+    return get(parameterType, trace: trace);
   }
 
   ast.TypeNode getTypeFromObject(DartType type,
@@ -78,14 +87,16 @@ class InputRegistry {
       return;
     }
 
-    final definition = ast.InputObjectTypeDefinitionNode(
+    final definition = ast.ObjectTypeDefinitionNode(
       name: ast.NameNode(value: classElement.name),
       description: classElement.description,
       fields: classElement.fields
-          .map((field) => ast.InputValueDefinitionNode(
-              name: ast.NameNode(value: field.name),
-              type: get(field.type, trace: [...trace, field]),
-              description: field.description))
+          .map(
+            (field) => ast.FieldDefinitionNode(
+                name: ast.NameNode(value: field.name),
+                description: field.description,
+                type: get(field.type, trace: [...trace, field])),
+          )
           .toList(),
     );
     definitions[classKey] = definition;

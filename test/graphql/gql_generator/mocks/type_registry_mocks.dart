@@ -2,7 +2,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/source/source.dart';
-import 'package:dart_cast/src/gql_generator/registries/registry_helpers.dart';
+import 'package:dart_cast/src/graphql/gql_generator/registries/registry_helpers.dart';
 import 'package:mocktail/mocktail.dart';
 
 class ScalarTypeMock extends Mock implements DartType {}

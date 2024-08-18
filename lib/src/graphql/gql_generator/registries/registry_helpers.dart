@@ -3,7 +3,7 @@ import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:gql/ast.dart' as ast;
 
-import '../exceptions.dart';
+import '../generation_exceptions.dart';
 
 extension Nullable on DartType {
   bool get isNonNull => nullabilitySuffix == NullabilitySuffix.none;

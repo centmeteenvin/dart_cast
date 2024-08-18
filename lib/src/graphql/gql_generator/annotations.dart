@@ -3,6 +3,9 @@
 /// The given function must fulfill some properties to correctly generate otherwise build_runner will
 /// throw an error. These depend on the given [operation].
 /// You can check this specifications at [Operation]
+
+// coverage:ignore-file
+
 class GraphQL {
   const GraphQL(this.operation);
 

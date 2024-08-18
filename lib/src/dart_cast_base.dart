@@ -1,1 +1,1 @@
-printHello() => print('hello');
+
