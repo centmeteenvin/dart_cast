@@ -18,9 +18,6 @@ jobs:
   test_with_coverage:
     name: Test with coverage
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: dart_cast/
     permissions:
       checks: write
       pull-requests: write
@@ -35,12 +32,12 @@ jobs:
 
         # run tests
       - name: Running tests with coverage
-        run: dart run coverage:test_with_coverage --out /dart_cast/coverage -- --file-reporter json:reports/tests.json --verbose-trace --timeout=60s -j 4
+        run: dart run coverage:test_with_coverage -- --file-reporter json:reports/tests.json --verbose-trace --timeout=60s -j 4
 
       - name: validate coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
-          path: "/dart_cast/coverage/lcov.info"
+          path: "/home/runner/work/dart_cast/coverage/lcov.info"
           min_coverage: 90
           exclude: "**/**.g.dart"
 
