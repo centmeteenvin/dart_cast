@@ -32,7 +32,7 @@ jobs:
 
         # run tests
       - name: Running tests with coverage
-        run: dart run coverage:test_with_coverage -- --file-reporter json:reports/tests.json --verbose-trace --timeout=60
+        run: dart run coverage:test_with_coverage -- --file-reporter json:reports/tests.json --verbose-trace --timeout=60s -j 4
 
       # publish results
       - name: Publish Test Results
