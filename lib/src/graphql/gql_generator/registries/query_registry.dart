@@ -4,7 +4,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:gql/ast.dart' as ast;
 
-import '../exceptions.dart';
+import '../generation_exceptions.dart';
 import '../registries/type_registry.dart';
 import './input_registry.dart';
 import './registry_helpers.dart';

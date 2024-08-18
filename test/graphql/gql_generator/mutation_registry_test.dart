@@ -1,4 +1,4 @@
-import 'package:dart_cast/src/graphql/gql_generator/exceptions.dart';
+import 'package:dart_cast/src/graphql/gql_generator/generation_exceptions.dart';
 import 'package:dart_cast/src/graphql/gql_generator/registries/input_registry.dart';
 import 'package:dart_cast/src/graphql/gql_generator/registries/mutation_registry.dart';
 import 'package:dart_cast/src/graphql/gql_generator/registries/type_registry.dart';
