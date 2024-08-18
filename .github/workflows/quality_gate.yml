@@ -1,0 +1,16 @@
+name: Quality Check
+
+on: pull_request
+
+jobs:
+  lint_and_analysis:
+    name: Lint and analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+
+      - name: Dart Analyze
+        uses: ValentinVignal/action-dart-analyze@v0.17
+        with:
+          fail-on: format
