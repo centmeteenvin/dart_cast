@@ -1,6 +1,12 @@
 name: Quality Check
 
-on: pull_request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   lint_and_analysis:
@@ -35,7 +41,7 @@ jobs:
         run: dart run coverage:test_with_coverage -- --file-reporter json:reports/tests.json --verbose-trace --timeout=60s -j 4
 
       - name: validate coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v2
+        uses: VeryGoodOpenSource/very_good_coverage@v3.0.0
         with:
           path: "coverage/lcov.info"
           min_coverage: 90

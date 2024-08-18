@@ -14,7 +14,18 @@ import './registries/query_registry.dart';
 import './registries/type_registry.dart';
 
 class QuerySchemaGenerator extends GeneratorForAnnotation<GraphQL> {
-  QuerySchemaGenerator() {}
+  final QueryRegistry queryRegistry;
+  final MutationRegistry mutationRegistry;
+
+  final TypeRegistry typeRegistry;
+  final InputRegistry inputRegistry;
+
+  QuerySchemaGenerator(
+      {super.throwOnUnresolved,
+      required this.queryRegistry,
+      required this.mutationRegistry,
+      required this.typeRegistry,
+      required this.inputRegistry});
 
   @override
   generateForAnnotatedElement(
@@ -32,11 +43,11 @@ class QuerySchemaGenerator extends GeneratorForAnnotation<GraphQL> {
     switch (operation) {
       case Operation.query:
         {
-          QueryRegistry.instance.create(element, trace: [element]);
+          queryRegistry.create(element, trace: [element]);
         }
       case Operation.mutation:
         {
-          MutationRegistry.instance.create(element, trace: [element]);
+          mutationRegistry.create(element, trace: [element]);
         }
     }
   }
@@ -45,9 +56,9 @@ class QuerySchemaGenerator extends GeneratorForAnnotation<GraphQL> {
   FutureOr<String> generate(LibraryReader library, BuildStep buildStep) async {
     print('called');
     await super.generate(library, buildStep);
-    final types = TypeRegistry.instance.definitions.values;
-    final queryTypes = QueryRegistry.instance.definitions.values;
-    final inputTypes = InputRegistry.instance.definitions.values;
+    final types = typeRegistry.definitions.values;
+    final queryTypes = queryRegistry.definitions.values;
+    final inputTypes = inputRegistry.definitions.values;
 
     final schema = ast.DocumentNode(definitions: [
       ...types,

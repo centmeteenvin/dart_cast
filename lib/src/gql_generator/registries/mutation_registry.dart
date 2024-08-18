@@ -10,25 +10,18 @@ import '../registries/type_registry.dart';
 import './registry_helpers.dart';
 
 class MutationRegistry {
-  static MutationRegistry? _instance = null;
-
   final Map<String, ast.FieldDefinitionNode> definitions = {};
 
-  static MutationRegistry get instance {
-    if (_instance == null) {
-      _instance = MutationRegistry();
-    }
-    return _instance!;
-  }
+  final TypeRegistry typeRegistry;
+  final InputRegistry inputRegistry;
+
+  MutationRegistry({required this.typeRegistry, required this.inputRegistry});
 
   ast.FieldDefinitionNode create(FunctionElement element,
       {required List<Element> trace}) {
     if (definitions.containsKey(element.name)) {
       throw DuplicateMutationError(trace: trace);
     }
-
-    final typeRegistry = TypeRegistry.instance;
-    final inputRegistry = InputRegistry.instance;
 
     final definition = ast.FieldDefinitionNode(
       name: ast.NameNode(value: element.name),

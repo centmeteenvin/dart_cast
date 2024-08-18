@@ -11,17 +11,8 @@ import '../exceptions.dart';
 import './registry_helpers.dart';
 
 class TypeRegistry {
-  static TypeRegistry? _instance;
-
   /// This map holds all the definitions and is keyed by a hash on the name and library field.
-  final Map<int, ast.TypeDefinitionNode> definitions = {};
-
-  static TypeRegistry get instance {
-    if (_instance == null) {
-      _instance = TypeRegistry();
-    }
-    return _instance!;
-  }
+  final Map<int, ast.ObjectTypeDefinitionNode> definitions = {};
 
   ast.TypeNode get(DartType type, {required List<Element> trace}) {
     final scalarType = scalarTypeOrNull(type);

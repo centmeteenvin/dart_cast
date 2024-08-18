@@ -10,19 +10,9 @@ import 'package:gql/ast.dart' as ast;
 import '../exceptions.dart';
 import './registry_helpers.dart';
 
-
 class InputRegistry {
-  static InputRegistry? _instance;
-
   /// This map holds all the definitions and is keyed by a hash on the name and library field.
-  final Map<int, ast.TypeDefinitionNode> definitions = {};
-
-  static InputRegistry get instance {
-    if (_instance == null) {
-      _instance = InputRegistry();
-    }
-    return _instance!;
-  }
+  final Map<int, ast.InputObjectTypeDefinitionNode> definitions = {};
 
   ast.TypeNode get(DartType type, {required List<Element> trace}) {
     final scalarType = scalarTypeOrNull(type);
