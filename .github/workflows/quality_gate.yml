@@ -29,4 +29,10 @@ jobs:
 
         # run tests
       - name: Running tests with coverage
-        run: dart run coverage:test_with_coverage
+        run: dart run coverage:test_with_coverage -- --file-reporter json:reports/tests.json
+
+      # publish results
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2.17.0
+        with:
+          files: reports/tests.json
