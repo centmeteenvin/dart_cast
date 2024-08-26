@@ -49,10 +49,19 @@ jobs:
         with:
           files: reports/tests.json
 
+      - name: Test Reporter
+        if: always()
+        uses: dorny/test-reporter@v1.9.1
+        with:
+          name: Dart unit tests
+          path: reports/tests.json
+          reporter: dart-json
+      
+
       - name: Code Coverage Report
         uses: romeovs/lcov-reporter-action@v0.4.0
         if: always()
         with:
           lcov-file: ./coverage/lcov.info
-          filter-change-files: true
+          filter-changed-files: true
           delete-old-comments: true
