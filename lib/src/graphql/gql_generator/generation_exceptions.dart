@@ -54,6 +54,13 @@ class NonFinalClassError extends InvalidClassDeclarationError {
       : super(message: "All fields of a GraphQL class must be final");
 }
 
+class LateFieldClassError extends InvalidClassDeclarationError {
+  LateFieldClassError({required super.trace})
+      : super(
+            message:
+                "All fields of a GraphQL class must not be marked late so that initialization of the field can be ensured");
+}
+
 class InvalidQueryDeclarationError extends GraphQLGeneratorError {
   InvalidQueryDeclarationError({required super.trace, required String message})
       : super(

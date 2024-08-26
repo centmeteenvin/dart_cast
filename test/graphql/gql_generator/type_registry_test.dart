@@ -102,5 +102,20 @@ void main() {
         e.toString();
       }
     });
+    test('A late field throws an error', () {
+      final classType = getDartTypeMock(
+          className: 'Test',
+          nullable: false,
+          fields: [(fieldName: 'late', nullable: false)]);
+      final field = (classType.element as ClassElement).fields.first;
+
+      when(() => field.isLate).thenReturn(true);
+
+      expect(
+          () => TypeRegistry().generateTypeForField(
+              field, classType.element as ClassElement,
+              trace: [field]),
+          throwsA(isA<LateFieldClassError>()));
+    });
   });
 }
