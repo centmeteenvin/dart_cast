@@ -92,13 +92,27 @@ class TypeRegistry {
       description: classElement.description,
       fields: classElement.fields
           .map(
-            (field) => ast.FieldDefinitionNode(
-                name: ast.NameNode(value: field.name),
-                description: field.description,
-                type: get(field.type, trace: [...trace, field])),
+            (field) => generateTypeForField(field, classElement,
+                trace: [...trace, field]),
           )
           .toList(),
     );
     definitions[classKey] = definition;
+  }
+
+  /// Generates a type for a given field and assumes the field is final
+  /// The purpose of this function is to ensure we can create the an instance of the class using the unnamed constructor
+  ast.FieldDefinitionNode generateTypeForField(
+      FieldElement fieldElement, ClassElement classElement,
+      {required List<Element> trace}) {
+    if (fieldElement.isFinal && fieldElement.isLate) {
+      throw LateFieldClassError(trace: trace);
+    }
+    {
+      return ast.FieldDefinitionNode(
+          name: ast.NameNode(value: fieldElement.name),
+          description: fieldElement.description,
+          type: get(fieldElement.type, trace: [...trace, fieldElement]));
+    }
   }
 }
