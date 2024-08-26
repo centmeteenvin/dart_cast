@@ -54,3 +54,5 @@ jobs:
         if: always()
         with:
           lcov-file: ./coverage/lcov.info
+          filter-change-files: true
+          delete-old-comments: true
