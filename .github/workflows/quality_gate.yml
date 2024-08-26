@@ -48,6 +48,7 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2.17.0
         with:
           files: reports/tests.json
+          check_run: false
 
       - name: Test Reporter
         if: always()
