@@ -47,8 +47,7 @@ class InputRegistry {
         : null;
   }
 
-  ast.TypeNode getTypeFromObject(DartType type,
-      {required List<Element> trace}) {
+  ast.TypeNode getTypeFromObject(DartType type, {required List<Element> trace}) {
     if (type.element == null || !(type.element is ClassElement)) {
       throw NoTypeElementError(trace: trace, type: type);
     }
@@ -63,29 +62,25 @@ class InputRegistry {
     }
 
     return ast.NamedTypeNode(
-      name: ast.NameNode(value: classElement.name),
+      name: ast.NameNode(value: classElement.name + "Input"),
       isNonNull: type.isNonNull,
     );
   }
 
   /// Register a certain type for definition generation. If the definition already exist it will not
-  void registerTypeDefinition(ClassElement classElement,
-      {required List<Element> trace}) {
+  void registerTypeDefinition(ClassElement classElement, {required List<Element> trace}) {
     //Try to check if the definition already exists
-    final classKey =
-        (classElement.name + classElement.source.fullName).hashCode;
+    final classKey = (classElement.name + classElement.source.fullName).hashCode;
     if (definitions.containsKey(classKey)) {
       return;
     }
 
     final definition = ast.InputObjectTypeDefinitionNode(
-      name: ast.NameNode(value: classElement.name),
+      name: ast.NameNode(value: classElement.name + "Input"),
       description: classElement.description,
       fields: classElement.fields
           .map((field) => ast.InputValueDefinitionNode(
-              name: ast.NameNode(value: field.name),
-              type: get(field.type, trace: [...trace, field]),
-              description: field.description))
+              name: ast.NameNode(value: field.name), type: get(field.type, trace: [...trace, field]), description: field.description))
           .toList(),
     );
     definitions[classKey] = definition;

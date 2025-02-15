@@ -9,3 +9,7 @@ type A {
 type Query {
   testQuery: A
 }
+
+type Mutation {
+  
+}

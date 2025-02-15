@@ -23,24 +23,14 @@ class QuerySchemaGenerator extends GeneratorForAnnotation<GraphQL> {
   final InputRegistry inputRegistry;
 
   QuerySchemaGenerator(
-      {super.throwOnUnresolved,
-      required this.queryRegistry,
-      required this.mutationRegistry,
-      required this.typeRegistry,
-      required this.inputRegistry});
+      {super.throwOnUnresolved, required this.queryRegistry, required this.mutationRegistry, required this.typeRegistry, required this.inputRegistry});
 
   @override
-  generateForAnnotatedElement(
-      Element element, ConstantReader annotation, BuildStep buildStep) {
+  generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
     if (!(element is FunctionElement)) {
-      throw InvalidGenerationSource(
-          'The [@Query] annotation should only be used on functions',
-          element: element);
+      throw InvalidGenerationSource('The [@Query] annotation should only be used on functions', element: element);
     }
-    final operation = Operation.values[annotation.objectValue
-        .getField('operation')!
-        .getField('index')!
-        .toIntValue()!];
+    final operation = Operation.values[annotation.objectValue.getField('operation')!.getField('index')!.toIntValue()!];
 
     switch (operation) {
       case Operation.query:
@@ -61,6 +51,7 @@ class QuerySchemaGenerator extends GeneratorForAnnotation<GraphQL> {
     final types = typeRegistry.definitions.values;
     final queryTypes = queryRegistry.definitions.values;
     final inputTypes = inputRegistry.definitions.values;
+    final mutationTypes = mutationRegistry.definitions.values;
 
     final schema = ast.DocumentNode(definitions: [
       ...types,
@@ -68,7 +59,8 @@ class QuerySchemaGenerator extends GeneratorForAnnotation<GraphQL> {
       ast.ObjectTypeDefinitionNode(
         name: ast.NameNode(value: 'Query'),
         fields: queryTypes.toList(),
-      )
+      ),
+      ast.ObjectTypeDefinitionNode(name: ast.NameNode(value: 'Mutation'), fields: mutationTypes.toList()),
     ]);
 
     final outputDirectory = Directory('./lib/generated/graphql');

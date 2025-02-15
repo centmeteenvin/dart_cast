@@ -23,10 +23,7 @@ void main() {
 
     test('Test if a data type generates all scalar fields and data fields', () {
       final className = 'Test';
-      final mock = getDartTypeMock(
-          nullable: true,
-          fields: [(fieldName: 'test', nullable: true)],
-          className: className);
+      final mock = getDartTypeMock(nullable: true, fields: [(fieldName: 'test', nullable: true)], className: className);
       final registry = InputRegistry();
 
       final typeNode = registry.get(mock, trace: []);
@@ -34,12 +31,12 @@ void main() {
       expect(typeNode is ast.NamedTypeNode, true);
       final namedTypeNode = typeNode as ast.NamedTypeNode;
 
-      expect(namedTypeNode.name.value, className);
+      expect(namedTypeNode.name.value, className + "Input");
       expect(namedTypeNode.isNonNull, false);
 
       final typeDefinition = registry.definitions.values.first;
 
-      expect(typeDefinition.name.value, className);
+      expect(typeDefinition.name.value, className + "Input");
 
       final fieldOne = typeDefinition.fields.first;
       expect(fieldOne.name.value, 'test');
@@ -51,8 +48,7 @@ void main() {
 
       final listType = getListTypeMock(nullable: true, child: childType);
 
-      expect(() => InputRegistry().get(listType, trace: []),
-          throwsA(isA<ListInputElementError>()));
+      expect(() => InputRegistry().get(listType, trace: []), throwsA(isA<ListInputElementError>()));
     });
   });
 }
