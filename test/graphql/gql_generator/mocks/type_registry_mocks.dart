@@ -63,6 +63,8 @@ DataTypeMock getDartTypeMock(
     when(() => fieldElement.getDisplayString()).thenReturn(field.fieldName);
     when(() => fieldElement.type)
         .thenAnswer((_) => getScalarTypeMock(nullable: field.nullable));
+    when(() => fieldElement.isFinal).thenReturn(true);
+    when(() => fieldElement.isLate).thenReturn(false);
     return fieldElement;
   }).toList();
 

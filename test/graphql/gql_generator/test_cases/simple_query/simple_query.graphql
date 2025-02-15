@@ -6,3 +6,7 @@ type Query {
   simpleQueryListNullable: [String!]
   simpleQueryListDoubleNullable: [String]
 }
+
+type Mutation {
+
+}

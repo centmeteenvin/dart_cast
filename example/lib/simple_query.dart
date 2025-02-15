@@ -1,56 +1,75 @@
 import 'package:dart_cast/dart_cast.dart';
 
-class SimpleType {
-  final String stringField;
-  final double doubleField;
-  final bool boolField;
-  final int intField;
-  final String? nullableField;
+// class SimpleType {
+//   final String stringField;
+//   final double doubleField;
+//   final bool boolField;
+//   final int intField;
+//   final String? nullableField;
 
-  final List<String> listField;
-  final List<String>? nullableListField;
-  final List<String?> listNullableField;
-  final List<String?>? doubleNullableField;
+//   final List<String> listField;
+//   final List<String>? nullableListField;
+//   final List<String?> listNullableField;
+//   final List<String?>? doubleNullableField;
 
-  SimpleType(
-      {required this.stringField,
-      required this.doubleField,
-      required this.boolField,
-      required this.intField,
-      required this.nullableField,
-      required this.listField,
-      required this.nullableListField,
-      required this.listNullableField,
-      required this.doubleNullableField});
+//   SimpleType(
+//       {required this.stringField,
+//       required this.doubleField,
+//       required this.boolField,
+//       required this.intField,
+//       required this.nullableField,
+//       required this.listField,
+//       required this.nullableListField,
+//       required this.listNullableField,
+//       required this.doubleNullableField});
+// }
+
+// class PositionalParameter {
+//   final String? foo = null;
+// }
+
+// class NamedParameter {
+//   final int? foo = 0;
+//   final InsideInputParameterWithReference? insideInputParameter = null;
+// }
+
+// class InsideInputParameterWithReference {
+//   final String? foo = '';
+//   final NamedParameter? backReference = null;
+// }
+
+// //
+// @GraphQL(Operation.query)
+// List<SimpleType> simpleTypeQuery(PositionalParameter emptyParameter,
+//     {required NamedParameter namedParameter, String defaultValue = 'foo'}) {
+//   return [];
+// }
+
+// @GraphQL(Operation.query)
+// SimpleType? simpleTypeQueryNullable() {
+//   return null;
+// }
+
+// @GraphQL(Operation.query)
+// List<SimpleType> simpleTypeList() {
+//   return [];
+// }
+
+class Status {
+  final String lastMessage;
+
+  const Status({required this.lastMessage});
 }
 
-class PositionalParameter {
-  final String? foo = null;
-}
+Status status = Status(lastMessage: 'Not initialized');
 
-class NamedParameter {
-  final int? foo = 0;
-  final InsideInputParameterWithReference? insideInputParameter = null;
-}
-
-class InsideInputParameterWithReference {
-  final String? foo = '';
-  final NamedParameter? backReference = null;
-}
-
-//
 @GraphQL(Operation.query)
-List<SimpleType> simpleTypeQuery(PositionalParameter emptyParameter,
-    {required NamedParameter namedParameter, String defaultValue = 'foo'}) {
-  return [];
+Status getStatus() {
+  return status;
 }
 
-@GraphQL(Operation.query)
-SimpleType? simpleTypeQueryNullable() {
-  return null;
-}
-
-@GraphQL(Operation.query)
-List<SimpleType> simpleTypeList() {
-  return [];
+@GraphQL(Operation.mutation)
+Status updateStatus(Status newStatus) {
+  status = newStatus;
+  return status;
 }

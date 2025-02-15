@@ -10,26 +10,30 @@ type SimpleType {
   doubleNullableField: [String]
 }
 
-input PositionalParameter {
+input PositionalParameterInput {
   foo: String
 }
 
-input InsideInputParameterWithReference {
+input InsideInputParameterWithReferenceInput {
   foo: String
-  backReference: NamedParameter
+  backReference: NamedParameterInput
 }
 
-input NamedParameter {
+input NamedParameterInput {
   foo: Int
-  insideInputParameter: InsideInputParameterWithReference
+  insideInputParameter: InsideInputParameterWithReferenceInput
 }
 
 type Query {
   simpleTypeQuery(
-    emptyParameter: PositionalParameter!
-    namedParameter: NamedParameter!
+    emptyParameter: PositionalParameterInput!
+    namedParameter: NamedParameterInput!
     defaultValue: String! = "'foo'"
   ): [SimpleType!]!
   simpleTypeQueryNullable: SimpleType
   simpleTypeList: [SimpleType!]!
+}
+
+type Mutation {
+
 }
